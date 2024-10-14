@@ -1,14 +1,14 @@
 <script setup>
-import { ref } from 'vue'
-import { useChatStore } from '@/stores/chatgptStore'
+import { ref } from "vue";
+import { useChatStore } from "@/stores/chatgptStore";
 
-const chatStore = useChatStore()
-const message = ref('')
+const chatStore = useChatStore();
+const message = ref("");
 
 const send = () => {
-  chatStore.sendMessage(message.value)
-  message.value = ''
-}
+  chatStore.sendMessage(message.value);
+  message.value = "";
+};
 </script>
 <template>
   <div>

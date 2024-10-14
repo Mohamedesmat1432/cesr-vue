@@ -1,28 +1,28 @@
 <script setup>
-import { onMounted, reactive } from 'vue'
-import { usePermissionStore } from '@/stores/permissionStore'
-import { storeToRefs } from 'pinia'
+import { onMounted, reactive } from "vue";
+import { usePermissionStore } from "@/stores/permissionStore";
+import { storeToRefs } from "pinia";
 
 const formData = reactive({
-  name: ''
-})
+  name: "",
+});
 
-const { errors, loading } = storeToRefs(usePermissionStore())
-const { create } = usePermissionStore()
+const { errors, loading } = storeToRefs(usePermissionStore());
+const { create } = usePermissionStore();
 
 onMounted(() => {
-  errors.value = {}
-  loading.value = false
-})
+  errors.value = {};
+  loading.value = false;
+});
 </script>
 
 <template>
   <div>
-    <h1 class="title animate-fade-down">{{ $t('create_permission') }}</h1>
+    <h1 class="title animate-fade-down">{{ $t("create_permission") }}</h1>
 
     <form @submit.prevent="create(formData)" class="form-data">
       <div>
-        <label for="name">{{ $t('name') }}</label>
+        <label for="name">{{ $t("name") }}</label>
         <input
           type="text"
           v-model="formData.name"
@@ -36,7 +36,7 @@ onMounted(() => {
       <div class="flex animate-fade-up">
         <submit-button :label="$t('create')" :loading="loading" />
         <router-link :to="{ name: 'permissions' }" class="dark-btn mx-1">
-          {{ $t('back') }}
+          {{ $t("back") }}
         </router-link>
       </div>
     </form>

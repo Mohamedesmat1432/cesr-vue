@@ -1,98 +1,88 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '@/views/HomeView.vue'
-import Register from '@/views/Auth/Register.vue'
-import Login from '@/views/Auth/Login.vue'
-import CreateRole from '@/views/Role/CreateRole.vue'
-import ListRole from '@/views/Role/ListRole.vue'
-import UpdateRole from '@/views/Role/UpdateRole.vue'
-import CreatePermission from '@/views/Permission/CreatePermission.vue'
-import ListPermission from '@/views/Permission/ListPermission.vue'
-import UpdatePermission from '@/views/Permission/UpdatePermission.vue'
-import { useAuthStore } from '@/stores/authStore'
+import { createRouter, createWebHistory } from "vue-router";
+import { useAuthStore } from "@/stores/authStore";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/',
-      name: 'home',
-      component: HomeView
+      path: "/",
+      name: "home",
+      component: () => import("@/views/HomeView.vue"),
     },
     {
-      path: '/register',
-      name: 'register',
-      component: Register,
-      meta: { guest: true }
+      path: "/register",
+      name: "register",
+      component: () => import("@/views/Auth/Register.vue"),
+      meta: { guest: true },
     },
     {
-      path: '/login',
-      name: 'login',
-      component: Login,
-      meta: { guest: true }
+      path: "/login",
+      name: "login",
+      component: () => import("@/views/Auth/Login.vue"),
+      meta: { guest: true },
     },
     {
-      path: '/roles',
-      name: 'roles',
-      component: ListRole,
-      meta: { auth: true }
+      path: "/roles",
+      name: "roles",
+      component: () => import("@/views/Role/ListRole.vue"),
+      meta: { auth: true },
     },
     {
-      path: '/create-role',
-      name: 'create-role',
-      component: CreateRole,
-      meta: { auth: true }
+      path: "/create-role",
+      name: "create-role",
+      component: () => import("@/views/Role/CreateRole.vue"),
+      meta: { auth: true },
     },
     // {
     //   path: '/roles/:id',
     //   name: 'show-role',
-    //   component: ShowRole,
+    // component: () => import("@/views/Role/ShowRole.vue"),
     //   meta: { auth: true }
     // },
     {
-      path: '/roles/update/:id',
-      name: 'roles-update',
-      component: UpdateRole,
-      meta: { auth: true }
+      path: "/roles/update/:id",
+      name: "roles-update",
+      component: () => import("@/views/Role/UpdateRole.vue"),
+      meta: { auth: true },
     },
     {
-      path: '/permissions',
-      name: 'permissions',
-      component: ListPermission,
-      meta: { auth: true }
+      path: "/permissions",
+      name: "permissions",
+      component: () => import("@/views/Permission/ListPermission.vue"),
+      meta: { auth: true },
     },
     {
-      path: '/create-permission',
-      name: 'create-permission',
-      component: CreatePermission,
-      meta: { auth: true }
+      path: "/create-permission",
+      name: "create-permission",
+      component: () => import("@/views/Permission/CreatePermission.vue"),
+      meta: { auth: true },
     },
     // {
     //   path: '/permissions/:id',
     //   name: 'show-permission',
-    //   component: ShowPermission,
+    //   component: () => import("@/views/Permission/ShowPermission.vue"),
     //   meta: { auth: true }
     // },
     {
-      path: '/permissions/update/:id',
-      name: 'permissions-update',
-      component: UpdatePermission,
-      meta: { auth: true }
-    }
+      path: "/permissions/update/:id",
+      name: "permissions-update",
+      component: () => import("@/views/Permission/UpdatePermission.vue"),
+      meta: { auth: true },
+    },
+  ],
+});
 
-  ]
-})
-
-router.beforeEach(async (to, from) => {
-  const authStore = useAuthStore()
-  await authStore.getUser()
+router.beforeEach(async (to, from, next) => {
+  const authStore = useAuthStore();
+  await authStore.getUser();
 
   if (authStore.user && to.meta.guest) {
-    return { name: 'home' }
+    return { name: "home" };
   }
 
   if (!authStore.user && to.meta.auth) {
-    return { name: 'login' }
+    return { name: "login" };
   }
-})
+});
 
-export default router
+export default router;

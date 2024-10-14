@@ -1,33 +1,41 @@
 <script setup>
-import { computed, onMounted, reactive } from 'vue'
-import { useRoleStore } from '@/stores/roleStore'
-import { storeToRefs } from 'pinia'
-import ConfirmDelete from '@/components/ConfirmDelete.vue'
+import { computed, onMounted, reactive } from "vue";
+import { useRoleStore } from "@/stores/roleStore";
+import { storeToRefs } from "pinia";
+import ConfirmDelete from "@/components/ConfirmDelete.vue";
 
-const { roles, currentPage, lastPage, isVisible } = storeToRefs(useRoleStore())
-const { loadRoles, openConfirmDelete, fetchPermissions,deleteRole, nextPage, prevPage, closeModal } = useRoleStore()
+const { roles, currentPage, lastPage, isVisible } = storeToRefs(useRoleStore());
+const {
+  loadRoles,
+  openConfirmDelete,
+  fetchPermissions,
+  deleteRole,
+  nextPage,
+  prevPage,
+  closeModal,
+} = useRoleStore();
 
-onMounted(() => {
-  loadRoles()
-  fetchPermissions()
-})
+onMounted(async () => {
+  await fetchPermissions();
+  await loadRoles();
+});
 </script>
 
 <template>
   <div>
-    <h1 class="title animate-fade-down">{{ $t('roles') }}</h1>
+    <h1 class="title animate-fade-down">{{ $t("roles") }}</h1>
     <div class="w-[90%] mx-auto animate-fade-up">
       <div class="flex justify-between my-3">
         <router-link :to="{ name: 'create-role' }" class="create-btn">
-          {{ $t('create') }}
+          {{ $t("create") }}
         </router-link>
       </div>
       <table>
         <thead>
           <tr>
             <th>#</th>
-            <th>{{ $t('name') }}</th>
-            <th colspan="2">{{ $t('actions') }}</th>
+            <th>{{ $t("name") }}</th>
+            <th colspan="2">{{ $t("actions") }}</th>
           </tr>
         </thead>
         <tbody v-if="roles.length > 0">
@@ -39,13 +47,13 @@ onMounted(() => {
                 :to="{ name: 'roles-update', params: { id: role.id } }"
                 class="update-btn"
               >
-                {{ $t('update') }}
+                {{ $t("update") }}
               </router-link>
             </td>
             <td>
               <form @submit.prevent="openConfirmDelete(role)">
                 <button type="submit" class="delete-btn">
-                  {{ $t('delete') }}
+                  {{ $t("delete") }}
                 </button>
               </form>
             </td>
@@ -53,12 +61,22 @@ onMounted(() => {
         </tbody>
       </table>
       <div class="pagination" v-if="lastPage > 1">
-        <button class="primary-btn" @click.prevent="prevPage()" :disabled="currentPage <= 1">
-          {{ $t('previous') }}
+        <button
+          class="primary-btn"
+          @click.prevent="prevPage()"
+          :disabled="currentPage <= 1"
+        >
+          {{ $t("previous") }}
         </button>
-        <span class="mx-2">{{ $t('page') }} {{ currentPage }} {{ $t('of') }} {{ lastPage }}</span>
-        <button class="primary-btn" @click.prevent="nextPage()" :disabled="currentPage >= lastPage">
-          {{ $t('next') }}
+        <span class="mx-2"
+          >{{ $t("page") }} {{ currentPage }} {{ $t("of") }} {{ lastPage }}</span
+        >
+        <button
+          class="primary-btn"
+          @click.prevent="nextPage()"
+          :disabled="currentPage >= lastPage"
+        >
+          {{ $t("next") }}
         </button>
       </div>
     </div>

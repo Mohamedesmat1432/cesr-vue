@@ -1,30 +1,30 @@
 <script setup>
-import { onMounted, reactive } from 'vue'
-import { useRoleStore } from '@/stores/roleStore'
-import { storeToRefs } from 'pinia'
+import { onMounted, reactive } from "vue";
+import { useRoleStore } from "@/stores/roleStore";
+import { storeToRefs } from "pinia";
 
 const formData = reactive({
-  name: '',
+  name: "",
   permissions: [],
-})
+});
 
-const { errors, loading , permissions} = storeToRefs(useRoleStore())
-const { create, fetchPermissions } = useRoleStore()
+const { errors, loading, permissions } = storeToRefs(useRoleStore());
+const { create, fetchPermissions } = useRoleStore();
 
-onMounted(async () => {
-  errors.value = {}
-  loading.value = false
-  await fetchPermissions()
-})
+onMounted(() => {
+  errors.value = {};
+  loading.value = false;
+  fetchPermissions();
+});
 </script>
 
 <template>
   <div>
-    <h1 class="title animate-fade-down">{{ $t('create_role') }}</h1>
+    <h1 class="title animate-fade-down">{{ $t("create_role") }}</h1>
 
     <form @submit.prevent="create(formData)" class="form-data">
       <div>
-        <label for="name">{{ $t('name') }}</label>
+        <label for="name">{{ $t("name") }}</label>
         <input
           type="text"
           v-model="formData.name"
@@ -35,10 +35,14 @@ onMounted(async () => {
         />
         <div class="error" v-if="errors.name">{{ errors.name[0] }}</div>
       </div>
-       <div>
+      <div>
         <div v-for="permission in permissions" :key="permission.id">
           <label>
-            <input type="checkbox" :value="permission.name" v-model="formData.permissions" />
+            <input
+              type="checkbox"
+              :value="permission.name"
+              v-model="formData.permissions"
+            />
             {{ permission.name }}
           </label>
         </div>
@@ -47,7 +51,7 @@ onMounted(async () => {
       <div class="flex animate-fade-up">
         <submit-button :label="$t('create')" :loading="loading" />
         <router-link :to="{ name: 'roles' }" class="dark-btn mx-1">
-          {{ $t('back') }}
+          {{ $t("back") }}
         </router-link>
       </div>
     </form>

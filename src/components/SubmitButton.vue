@@ -2,13 +2,13 @@
 const props = defineProps({
   label: {
     type: String,
-    default: 'Submit'
+    default: "Submit",
   },
   loading: {
     type: Boolean,
-    default: false
-  }
-})
+    default: false,
+  },
+});
 </script>
 <template>
   <button v-if="!loading" class="update-btn" type="submit">

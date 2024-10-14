@@ -1,31 +1,31 @@
 <script setup>
-import { onMounted, reactive } from 'vue'
-import { useAuthStore } from '@/stores/authStore'
-import { storeToRefs } from 'pinia'
+import { onMounted, reactive } from "vue";
+import { useAuthStore } from "@/stores/authStore";
+import { storeToRefs } from "pinia";
 
 const formData = reactive({
-  name: '',
-  email: '',
-  password: '',
-  password_confirmation: ''
-})
+  name: "",
+  email: "",
+  password: "",
+  password_confirmation: "",
+});
 
-const { errors, loading } = storeToRefs(useAuthStore())
-const { authenticate } = useAuthStore()
+const { errors, loading } = storeToRefs(useAuthStore());
+const { authenticate } = useAuthStore();
 
 onMounted(() => {
-  errors.value = {}
-  loading.value = false
-})
+  errors.value = {};
+  loading.value = false;
+});
 </script>
 
 <template>
   <div>
-    <h1 class="title animate-fade-down">{{ $t('register_account') }}</h1>
+    <h1 class="title animate-fade-down">{{ $t("register_account") }}</h1>
 
     <form @submit.prevent="authenticate('register', formData)" class="form-data">
       <div>
-        <label for="name">{{ $t('name') }}</label>
+        <label for="name">{{ $t("name") }}</label>
         <input
           type="text"
           v-model="formData.name"
@@ -36,7 +36,7 @@ onMounted(() => {
       </div>
 
       <div>
-        <label for="email">{{ $t('email') }}</label>
+        <label for="email">{{ $t("email") }}</label>
         <input
           type="email"
           v-model="formData.email"
@@ -47,7 +47,7 @@ onMounted(() => {
       </div>
 
       <div>
-        <label for="password">{{ $t('password') }}</label>
+        <label for="password">{{ $t("password") }}</label>
         <input
           type="password"
           v-model="formData.password"
@@ -58,7 +58,7 @@ onMounted(() => {
       </div>
 
       <div>
-        <label for="password_confirmation">{{ $t('password_confirmation') }}</label>
+        <label for="password_confirmation">{{ $t("password_confirmation") }}</label>
         <input
           type="password"
           v-model="formData.password_confirmation"

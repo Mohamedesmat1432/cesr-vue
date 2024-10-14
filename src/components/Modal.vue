@@ -1,12 +1,12 @@
 <script setup>
-import { computed } from 'vue'
-import { useModalStore } from '@/stores/modalStore'
+import { computed } from "vue";
+import { useModalStore } from "@/stores/modalStore";
 
-const modalStore = useModalStore()
+const modalStore = useModalStore();
 
-const isOpen = computed(() => modalStore.isOpen)
-const content = computed(() => modalStore.content)
-const close = () => modalStore.close()
+const isOpen = computed(() => modalStore.isOpen);
+const content = computed(() => modalStore.content);
+const close = () => modalStore.close();
 </script>
 <template>
   <div v-if="isOpen" class="modal-overlay" @click.self="close">

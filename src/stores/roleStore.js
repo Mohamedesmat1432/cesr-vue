@@ -48,7 +48,10 @@ export const useRoleStore = defineStore("roleStore", {
     async fetchPermissions() {
       try {
         this.loading = true;
-        const res = await fetch("/api/all-permissions", header("GET", this.token));
+        const res = await fetch(
+          "/api/all-permissions",
+          header("GET", this.token)
+        );
         const data = await res.json();
         this.permissions = data.permissions;
       } catch (err) {
@@ -100,7 +103,7 @@ export const useRoleStore = defineStore("roleStore", {
     async show(role) {
       const res = await fetch(`/api/roles/${role}`, header("GET", this.token));
       const data = await res.json();
-      this.role =  data.role;
+      this.role = data.role;
       this.selectedPermissions = data.permissions;
     },
     async update(role, formData) {

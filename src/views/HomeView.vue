@@ -1,20 +1,20 @@
 <script setup>
-import { ref, watch } from 'vue'
-import { useModalStore } from '@/stores/modalStore'
-import Modal from '@/components/Modal.vue'
+import { ref, watch } from "vue";
+import { useModalStore } from "@/stores/modalStore";
+import Modal from "@/components/Modal.vue";
 
-const modalStore = useModalStore()
-const openModal = () => modalStore.open()
-// navigator.getBattery().then((battery) => {
-//   console.log(battery.level * 100 + '%')
-// })
+const modalStore = useModalStore();
+const openModal = () => modalStore.open();
+navigator.getBattery().then((battery) => {
+  console.log(battery.level * 100 + "%");
+});
 </script>
 
 <template>
   <main class="w-[90%] mx-auto">
-    <h1 class="title animate-fade-down space-y-6">{{ $t('welcome') }}</h1>
+    <h1 class="title animate-fade-down space-y-6">{{ $t("welcome") }}</h1>
     <button @click="openModal()">Open Modal</button>
-    <modal> {{ $t('welcome') }} </modal>
+    <modal> {{ $t("welcome") }} </modal>
   </main>
 </template>
 
