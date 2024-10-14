@@ -1,5 +1,5 @@
 <script setup>
-import { computed, onMounted, reactive } from "vue";
+import { computed, onMounted, reactive, watchEffect } from "vue";
 import { useRoleStore } from "@/stores/roleStore";
 import { storeToRefs } from "pinia";
 import ConfirmDelete from "@/components/ConfirmDelete.vue";
@@ -17,8 +17,11 @@ const {
 
 onMounted(async () => {
   await fetchPermissions();
-  await loadRoles();
 });
+
+watchEffect(async () => {
+  await loadRoles();
+})
 </script>
 
 <template>
